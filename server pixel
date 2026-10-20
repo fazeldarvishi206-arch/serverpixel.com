@@ -1,586 +1,89 @@
-
+```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101810">
-  <meta name="description" content="Server Pixel؛ سرور ماینکرفت برای بازی، آرامش و ماجراجویی در کنار دوستان.">
-  <title>Server Pixel | سرور ماینکرفت</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ServerPixel | Minecraft</title>
   <style>
-    :root {
-      --bg: #0b110d;
-      --panel: #152219;
-      --green: #62e65c;
-      --green-dark: #287b35;
-      --text: #f3fff1;
-      --muted: #b2c5b3;
-      --border: #35583b;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; }
     body {
-      font-family: Tahoma, Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(ellipse at top, #203d25 0%, transparent 55%),
-        var(--bg);
-      line-height: 1.9;
+      margin: 0;
+      font-family: Tahoma, sans-serif;
+      background: #101810;
+      color: white;
+      text-align: center;
     }
-
-    a {
-      color: inherit;
+    header {
+      padding: 20px;
+      background: #1c2d1c;
+      border-bottom: 3px solid #58b947;
+    }
+    header h2 { color: #76e45b; margin: 5px; }
+    .hero { padding: 65px 18px; }
+    .hero h1 {
+      font-size: clamp(32px, 8vw, 56px);
+      color: #7bed58;
+      text-shadow: 3px 3px #23451b;
+    }
+    .hero p { line-height: 2; color: #d2dfce; }
+    .grass { font-size: 64px; margin: 20px; }
+    .button {
+      display: inline-block;
+      background: #54b83f;
+      color: white;
+      padding: 15px 24px;
+      margin: 8px;
+      border: 2px solid #a1f18a;
+      border-radius: 6px;
       text-decoration: none;
-    }
-
-    button {
-      font: inherit;
+      font-weight: bold;
       cursor: pointer;
     }
-
-    .container {
-      width: min(1100px, 92%);
-      margin: auto;
+    .panel {
+      max-width: 500px;
+      margin: 10px auto 35px;
+      padding: 25px;
+      background: #1b291b;
+      border: 1px solid #416b38;
+      border-radius: 12px;
     }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: #101a13ee;
-      border-bottom: 2px solid var(--border);
-      backdrop-filter: blur(12px);
-    }
-
-    nav {
-      min-height: 75px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      flex-wrap: wrap;
-      padding: 12px 0;
-    }
-
-    .logo {
-      color: var(--green);
-      font-size: 23px;
-      font-weight: 900;
-      letter-spacing: 1px;
-      text-shadow: 3px 3px #17401e;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .nav-links a:hover {
-      color: var(--green);
-    }
-
-    .hero {
-      min-height: 560px;
-      padding: 85px 0 70px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(transparent 95%, #ffffff08 95%),
-        linear-gradient(90deg, transparent 95%, #ffffff08 95%);
-      background-size: 32px 32px;
-      mask-image: linear-gradient(to bottom, black, transparent);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      max-width: 760px;
-    }
-
-    .tag {
-      display: inline-block;
-      border: 1px solid var(--border);
-      color: var(--green);
-      background: #13251a;
-      border-radius: 30px;
-      padding: 5px 16px;
-      font-size: 13px;
-      margin-bottom: 20px;
-    }
-
-    .block-art {
-      font-size: clamp(48px, 9vw, 82px);
-      line-height: 1.5;
-      filter: drop-shadow(0 8px 0 #172719);
-      margin-bottom: 8px;
-    }
-
-    h1 {
-      font-size: clamp(36px, 7vw, 68px);
-      line-height: 1.3;
-      color: var(--green);
-      text-shadow: 4px 4px 0 #234b29;
-      overflow-wrap: anywhere;
-    }
-
-    .hero p {
-      max-width: 640px;
-      margin: 20px auto 25px;
-      color: var(--muted);
-      font-size: 17px;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 23px;
-      border: 2px solid var(--green);
-      border-radius: 7px;
-      font-weight: bold;
-      transition: .2s;
-    }
-
-    .btn-primary {
-      background: var(--green);
-      color: #0b190c;
-      box-shadow: 0 5px 0 #287b35;
-    }
-
-    .btn-secondary {
-      background: #17251b;
-      color: white;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      filter: brightness(1.1);
-    }
-
-    section {
-      padding: 55px 0;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .section-title h2 {
-      color: var(--green);
-      font-size: clamp(25px, 4vw, 34px);
-    }
-
-    .section-title p {
-      color: var(--muted);
-      margin-top: 7px;
-    }
-
-    .server-card {
-      max-width: 720px;
-      margin: auto;
-      padding: 28px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: linear-gradient(145deg, #192b1d, #101a13);
-      box-shadow: 0 15px 45px #0004;
-      text-align: center;
-    }
-
-    .server-card h3 {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: #c6d7c6;
-      margin-bottom: 20px;
-    }
-
-    .status-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #8caa8d;
-      display: inline-block;
-    }
-
-    .ip-box {
+    #ip {
       direction: ltr;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      background: #090f0b;
-      border: 1px dashed #548958;
-      border-radius: 9px;
-      padding: 12px 15px;
-      margin: 12px 0;
-    }
-
-    #server-ip {
-      font-size: clamp(14px, 3.5vw, 20px);
+      font-size: 18px;
+      color: #7bed58;
       overflow-wrap: anywhere;
-      color: #d8ffd4;
     }
-
-    .copy-btn {
-      flex-shrink: 0;
-      border: 0;
-      background: var(--green);
-      color: #0b190c;
-      border-radius: 6px;
-      padding: 10px 13px;
-      font-weight: bold;
-    }
-
-    #copy-message {
-      min-height: 28px;
-      color: var(--green);
-      font-size: 13px;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .feature {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 25px 20px;
-      text-align: center;
-      transition: .2s;
-    }
-
-    .feature:hover {
-      transform: translateY(-5px);
-      border-color: var(--green);
-    }
-
-    .feature .icon {
-      font-size: 36px;
-      margin-bottom: 8px;
-    }
-
-    .feature h3 {
-      color: var(--green);
-      margin-bottom: 8px;
-    }
-
-    .feature p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .about {
-      max-width: 780px;
-      margin: auto;
-      text-align: center;
-      color: var(--muted);
-      background: var(--panel);
-      border: 1px solid var(--border);
-      padding: 28px;
-      border-radius: 12px;
-    }
-
-    .about strong {
-      color: var(--green);
-    }
-
-    .rules {
-      max-width: 760px;
-      margin: auto;
-      display: grid;
-      gap: 12px;
-    }
-
-    .rule {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      padding: 15px 18px;
-      color: var(--muted);
-    }
-
-    .rule strong {
-      color: var(--green);
-    }
-
-    .join {
-      text-align: center;
-      background: linear-gradient(180deg, transparent, #1c3b21);
-      padding-bottom: 75px;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      text-align: center;
-      padding: 25px 12px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    footer strong {
-      color: var(--green);
-    }
-
-    @media (max-width: 700px) {
-      .features {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: 500px;
-        padding: 60px 0;
-      }
-
-      nav {
-        justify-content: center;
-      }
-
-      .nav-links {
-        justify-content: center;
-        gap: 14px;
-      }
-
-      .server-card {
-        padding: 20px 13px;
-      }
-
-      .ip-box {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .ip-box #server-ip {
-        width: 100%;
-        text-align: center;
-      }
-    }
+    footer { padding: 22px; color: #aab8a6; }
   </style>
 </head>
-
 <body>
-
   <header>
-    <nav class="container">
-      <a class="logo" href="#home">⛏ SERVER PIXEL</a>
-      <div class="nav-links">
-        <a href="#home">خانه</a>
-        <a href="#server">آی‌پی سرور</a>
-        <a href="#features">امکانات</a>
-        <a href="#rules">قوانین</a>
-      </div>
-    </nav>
+    <h2>⛏ ServerPixel</h2>
+    دنیای ماجراجویی تو از اینجا شروع می‌شه!
   </header>
 
-  <main>
-    <section class="hero" id="home">
-      <div class="hero-content container">
-        <div class="tag">🌿 دنیای تو، ماجراجویی تو</div>
-        <div class="block-art" aria-hidden="true">🌳 🟩 ⛏️ 🟫</div>
-        <h1>SERVER PIXEL</h1>
-        <p>
-          به سرور پیکسل خوش آمدی!
-          <br>
-          هدف ما ساختن فضایی برای بازی کردن، لذت بردن
-          و آرامش شما در دنیای ماینکرفت است.
-          ماجراجویی بعدی تو از اینجا شروع می‌شود!
-        </p>
-        <div class="buttons">
-          <a class="btn btn-primary" href="#server">🎮 ورود به سرور</a>
-          <a class="btn btn-secondary" href="#features">✨ آشنایی بیشتر</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="server">
-      <div class="container">
-        <div class="section-title">
-          <h2>🎮 به ما ملحق شو!</h2>
-          <p>آی‌پی سرور را کپی کن و وارد دنیای بازی شو.</p>
-        </div>
-
-        <div class="server-card">
-          <h3>🌍 Server Pixel</h3>
-          <div class="status">
-            <span class="status-dot"></span>
-            برای اطلاع از وضعیت آنلاین بودن سرور، اتصال را بررسی کن.
-          </div>
-
-          <div class="ip-box">
-            <code id="server-ip">serverpixel.funserver.top</code>
-            <button class="copy-btn" id="copy-btn" type="button">
-              📋 کپی آی‌پی
-            </button>
-          </div>
-
-          <p id="copy-message" role="status" aria-live="polite"></p>
-          <p style="color: var(--muted); font-size: 13px;">
-            Minecraft Java Edition · نسخه سازگار را از مدیریت سرور بپرس.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="features">
-      <div class="container">
-        <div class="section-title">
-          <h2>✨ چرا Server Pixel؟</h2>
-          <p>جایی برای ساختن خاطرات خوب در کنار دیگر بازیکنان</p>
-        </div>
-
-        <div class="features">
-          <article class="feature">
-            <div class="icon">🏡</div>
-            <h3>آرامش و سرگرمی</h3>
-            <p>
-              هدف ما فراهم کردن محیطی دوستانه برای بازی و لذت بردن از ماینکرفت است.
-            </p>
-          </article>
-
-          <article class="feature">
-            <div class="icon">⛏️</div>
-            <h3>ماجراجویی</h3>
-            <p>
-              در دنیای بلوکی بگرد، منابع جمع کن و با خلاقیت خودت تجربه بساز.
-            </p>
-          </article>
-
-          <article class="feature">
-            <div class="icon">🤝</div>
-            <h3>جامعه دوستانه</h3>
-            <p>
-              با احترام به دیگران بازی کن و به ساختن یک جامعه خوب کمک کن.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="container">
-        <div class="section-title">
-          <h2>🌿 درباره سرور پیکسل</h2>
-        </div>
-        <div class="about">
-          <p>
-            <strong>سرور پیکسل</strong> یک سرور ماینکرفت است.
-            هدف این سرور بازی کردن شما در سرور و فراهم کردن
-            فضایی برای آرامش و سرگرمی شماست.
-          </p>
-          <p style="margin-top: 12px;">
-            چه بازیکن تازه‌کار باشی و چه یک ماجراجوی قدیمی،
-            امیدواریم از لحظاتت در دنیای پیکسل لذت ببری!
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="rules">
-      <div class="container">
-        <div class="section-title">
-          <h2>📜 قوانین سرور</h2>
-          <p>برای داشتن یک محیط خوب، به یکدیگر احترام بگذاریم.</p>
-        </div>
-
-        <div class="rules">
-          <div class="rule">🟩 <strong>احترام:</strong> با همه بازیکنان محترمانه رفتار کن.</div>
-          <div class="rule">🟩 <strong>بازی منصفانه:</strong> از تقلب و ابزارهای ناعادلانه استفاده نکن.</div>
-          <div class="rule">🟩 <strong>امنیت:</strong> اطلاعات شخصی و رمزهای خودت را به دیگران نده.</div>
-          <div class="rule">🟩 <strong>آرامش:</strong> از آزار، توهین و خرابکاری عمدی خودداری کن.</div>
-        </div>
-      </div>
-    </section>
-
-    <section class="join">
-      <div class="container">
-        <div class="section-title">
-          <h2>آماده‌ای وارد بازی بشی؟</h2>
-          <p>آی‌پی رو کپی کن و در بخش Multiplayer بازی وارد کن.</p>
-        </div>
-        <a class="btn btn-primary" href="#server">🚀 شروع ماجراجویی</a>
-      </div>
-    </section>
+  <main class="hero">
+    <div class="grass">🌳⛏️🌲</div>
+    <h1>SERVERPIXEL</h1>
+    <p>
+      به دنیای بلوکی ما خوش اومدی!<br>
+      آماده‌ای ماجراجویی خودت رو شروع کنی؟
+    </p>
+    <a class="button" href="#server">مشاهده اطلاعات سرور</a>
   </main>
 
+  <section class="panel" id="server">
+    <h2>🎮 اطلاعات سرور</h2>
+    <p>آدرس سرور:</p>
+    <p id="ip">serverpixel.funserver.top</p>
+    <button class="button" onclick="copyIP()">📋 کپی آی‌پی سرور</button>
+    <p id="message"></p>
+  </section>
+
   <footer>
-    <p><strong>SERVER PIXEL</strong> © 2026</p>
-    <p>ساخته‌شده با 💚 برای عاشقان Minecraft</p>
-    <p>وضعیت آنلاین بودن و امکانات واقعی سرور باید جداگانه تأیید شوند.</p>
+    ServerPixel © 2026 · ساخته‌شده برای عاشقان Minecraft
   </footer>
 
   <script>
-    const copyButton = document.getElementById("copy-btn");
-    const ipElement = document.getElementById("server-ip");
-    const message = document.getElementById("copy-message");
-
-    copyButton.addEventListener("click", async () => {
-      const ip = ipElement.textContent.trim();
-
-      try {
-        await navigator.clipboard.writeText(ip);
-        message.textContent = "✅ آی‌پی سرور کپی شد!";
-      } catch (error) {
-        const textArea = document.createElement("textarea");
-        textArea.value = ip;
-        textArea.style.position = "fixed";
-        textArea.style.opacity = "0";
-        document.body.appendChild(textArea);
-        textArea.select();
-
-        const copied = document.execCommand("copy");
-        textArea.remove();
-
-        message.textContent = copied
-          ? "✅ آی‌پی سرور کپی شد!"
-          : "آی‌پی را دستی کپی کن: " + ip;
-      }
-
-      copyButton.textContent = "✅ کپی شد!";
-      setTimeout(() => {
-        copyButton.textContent = "📋 کپی آی‌پی";
-      }, 2000);
-    });
-  </script>
-
-</body>
-</html>
+    function copyIP
